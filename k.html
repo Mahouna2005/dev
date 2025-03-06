@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="https://cryptogunner.online/wp-content/uploads/2023/03/Logotipo_Token2.png" type="image/x-icon">
+  <title>Cryptogunner\`s Adventure Mode</title>
+</head> 
+<body>
+    <div class="container">
+      <div class="container-game-info">
+        <div class="container-bullets">
+          <h2 id="bullets"></h2><!-- Fetch --><h2 id="bullets-num"></h2>
+        </div>
+        <div class="container-timer">
+          <h2 id="timer"></h2><!-- Fetch --><h2 id="timer-num"></h2>
+        </div>
+        <div class="container-score">
+          <h2 id="score"></h2><!-- Fetch --><h2 id="score-num"></h2>        
+        </div>      
+      </div>
+  <button type="button" class="button">START</button>
+      <div class="start-timer">
+        <h1 id="start-timer"></h1>
+      </div>
+  
+  
+      <div class="game-rules">
+          <h3>The Undead army is comming...</h3>
+          <p>"Listen, young Gunner, for I shall impart upon you the wisdom of the Adventure mode. It is here that you shall be trained to face the impending zombie hordes, for we seek to identify the finest Gunners who will rise to become heroes of humanity. Remember, practice is the key to growth, for the more you train, the stronger you shall become. Embrace the challenges that lie ahead, for through dedication and perseverance, you shall prove your worth and emerge as a beacon of hope in the face of darkness. Your destiny awaits, young Gunner, may your path be guided by courage and skill." - With my respect, The Officer.</p>
+          <h3>Game Rules:</h3>
+          <ul>
+              <li>Each NFT rarity have different amount of Bullets, Time and Max Score.</li>
+              <li>Highest rarity NFTs will earn more than low rarity ones.</li>
+              <li>If your BULLETS goes to zero, game over.</li>
+              <li>If your TIME goes to zero, game over.</li>
+              <li>If your MAX SCORE is reached, game over.</li>
+              <li>Shoot the zombies to earn. Each score = 2 $CGUNs</li>
+              <li>Use the mouse to aim and left click to shoot</li>
+              <li>Each zombie killed will earn you 2 $CGUNs</li>
+              <li>Have fun, and good luck!</li>
+          </ul>
+      </div>
+  
+      <div class="container-button-start">
+      </div>
+      <img
+        src="https://clipart-library.com/img1/37366.gif"
+        alt="Crosshair"
+        class="cursor"
+      />
+      <img
+        src="https://clipart-library.com/images_k/bullet-hole-transparent/bullet-hole-transparent-19.png"
+        alt="Bullet Hole"
+        class="bulletHole"
+      />
+      <img
+        src="https://clipart-library.com/images/Lcd5A9bbi.png"
+        alt="Blood Spot"
+        class="bloodSpot"
+      />
+    </div>
+    <script>
+      
+/* Made with ❤️ by Anderson Campolina for the community
+* https://www.linkedin.com/in/anderson-campolina-688175225
+* This source code is used for study purposes and increment my portfolio only.
+*/
+  
+/* GLOBAL VARS */
+
+const maxScore = 10 //
+ let timerCount = 12 //
+ let bullets = 11 //
+
+ let timer;
+ let startTimerCount = 4;
+ let startTimer;
+ let gameStarted = false
+ let score = 0;
+ let canShoot = false
+
+ /* CAPTURED ELEMENTS */
+
+ const shootAudio = new Audio("https://cdn.pixabay.com/download/audio/2022/03/26/audio_d0ed19ffb1.mp3?filename=gun_in_small_room_02-107590.mp3");
+ shootAudio.volume = 0.07;
+ const moneySound = new Audio("https://cryptogunner.online/wp-content/uploads/2023/05/coins.mp3");
+ moneySound.volume = 0.2;
+ const bulletsElement = document.querySelector("#bullets");
+ const scoreElement = document.querySelector("#score");
+ const timerElement = document.querySelector("#timer");
+ const bulletsElementNum = document.querySelector("#bullets-num");
+ const scoreElementNum = document.querySelector("#score-num");
+ const timerElementNum = document.querySelector("#timer-num");
+ const cursor = document.querySelector(".cursor");
+ const container = document.querySelector(".container");
+ const bulletHole = document.querySelector(".bulletHole");
+ const bloodSpot = document.querySelector(".bloodSpot");
+ const button = document.querySelector(".button");
+ const zombie = document.createElement("img");
+ const startTimerElementNum = document.getElementById("start-timer");
+ const gameRules = document.querySelector(".game-rules");
+
+ /* ZOMBIE AND MUSIC SPAWN SETTINGS */
+
+ zombie.setAttribute("class", "zombie");
+ const randomNumber = Math.floor(Math.random() * 100);
+ let backgroundMusic;
+ // if randomNumber is between 0 and 33, spawn zombie 1
+ if (randomNumber >= 0 && randomNumber <= 33) {
+   zombie.setAttribute("src","https://clipart-library.com/images_k/zombie-head-silhouette/zombie-head-silhouette-24.png");
+   backgroundMusic = new Audio('https://cryptogunner.online/wp-content/uploads/2023/05/background-sound.mp3');
+ } else
+ // if randomNumber is between 34 and 66, spawn zombie 2
+ if (randomNumber >= 34 && randomNumber <= 66) {
+   zombie.setAttribute("src","https://clipart-library.com/images_k/zombie-head-silhouette/zombie-head-silhouette-24.png");
+   backgroundMusic = new Audio('https://cryptogunner.online/wp-content/uploads/2023/04/Creepy-Action.mp3');
+ } else
+ // if randomNumber is between 67 and 100, spawn zombie 3
+ if (randomNumber >= 67 && randomNumber <= 100) {
+   zombie.setAttribute("src","https://clipart-library.com/images_k/zombie-head-silhouette/zombie-head-silhouette-24.png");
+   backgroundMusic = new Audio('https://cryptogunner.online/wp-content/uploads/2023/04/Castle-of-Horrors.mp3');
+ }
+ const contHeight = container.offsetHeight;
+ const contWidth = container.offsetWidth;
+ setInterval(() => {
+   const randTop = Math.random() * (contHeight - 100);
+   const randLeft = Math.random() * (contWidth - 100);
+   zombie.style.position = "absolute";
+   zombie.style.top = randTop + "px";
+   zombie.style.left = randLeft + "px";
+ }, 1000);
+
+ /* GAME INFO SCORE */
+
+ button.addEventListener("mousedown", startGame)
+ bulletsElementNum.innerHTML = bullets;
+ scoreElementNum.innerHTML = `${score} / ${maxScore}`;
+ timerElementNum.innerHTML = timerCount;
+
+ /* FUNCTIONS */
+
+ function abrirTelaCheia() {
+   const elem = document.documentElement;
+   if (elem.requestFullscreen) {
+       elem.requestFullscreen();
+   } else if (elem.mozRequestFullScreen) { // Firefox
+       elem.mozRequestFullScreen();
+   } else if (elem.webkitRequestFullscreen) { // Chrome, Safari e Opera
+       elem.webkitRequestFullscreen();
+   } else if (elem.msRequestFullscreen) { // Internet Explorer e Edge
+       elem.msRequestFullscreen();
+   }
+}
+
+ async function startGame() {
+   if(button.innerText === "START") {
+
+     button.style.display = "none";
+     gameRules.style.display = "none";
+
+ abrirTelaCheia();
+
+     /* SET 3 SECONDS TIMER TO START GAME */
+     startTimer = setInterval(() => {
+       startTimerCount--;
+       startTimerElementNum.innerText = startTimerCount;
+       if(startTimerCount <= -1) {
+         clearInterval(startTimer);
+         startTimerElementNum.innerText = "GO!";
+         startTimerElementNum.style.color = "#7CFC00";
+         startTimerElementNum.style.fontFamily = '"Rubik Wet Paint", sans-serif';
+         setTimeout(() => {
+           startTimerElementNum.style.display = "none";
+           setTimeout(() => {
+               initializeGame()
+           }, 1000);
+           backgroundMusic.volume = 0.1;
+           backgroundMusic.play();
+         }, 1000);
+       }
+     }, 1000);
+
+     function initializeGame() {
+       setTimeout(() => {
+         canShoot = true
+       }, 420);
+       gameStarted = true
+       document.body.style.cursor = "none"
+       cursor.style.display = "block"
+       container.appendChild(zombie);
+       // set the timer when starts the game
+       timer = setInterval(function() {
+         if(timerCount <= 0) {
+           clearInterval(timer);
+           endGame()
+         }
+         timerElementNum.innerHTML = timerCount;
+         timerCount--;
+       }, 1000);
+     }
+   }
+ }
+
+ function endGame() {
+   container.removeChild(zombie);
+   button.innerText = "GAME OVER";
+   gameStarted = false
+   document.body.style.cursor = "default"
+   cursor.style.display = "none"
+
+   const finalScore = (score / maxScore) * 100;
+   let msg;
+   if(finalScore < 33) msg = "Rank C: Zombie Novice - Keep practicing! You can do it! Practice is the key!";
+   if(finalScore >= 33 && finalScore < 66) msg = "Rank B: Undead Exterminator - You are a true Zombie Hunter!";
+   if(finalScore >= 66 && finalScore < 99) msg = "Rank A: Zombie Slayer - You are a true Zombie Hunter!";
+   if(finalScore === 100) msg = "Rank S: Apocalypse Conqueror - We will need you when the Zombie Apocalypse comes!";
+
+   container.innerHTML = `
+   <div class="container-collect-cgun">
+     <h2 style="color:white">${msg}</h2>
+     <button id="collect-cgun-btn" onclick="collectCgun()">Click to collect ${score * 2} $CGUNs</button>
+   </div>
+  `;
+ }
+
+ async function collectCgun() {
+   const collectCgunBtn = document.getElementById("collect-cgun-btn");
+   if(collectCgunBtn.textContent === "GRATS! Come back tomorrow!") {
+     collectCgunBtn.textContent === "You already have collected you prize today!"
+     setTimeout(() => {
+       // disable the button
+       collectCgunBtn.disabled = true;
+     }, 3000);
+     return
+   };
+
+   collectCgunBtn.textContent = "GRATS! Come back tomorrow!";
+   moneySound.play();
+   setTimeout(() => {
+       window.location.href = "https://codepen.io/Zehn1984/pen/BaqRxRK";
+   }, 1000);
+ }
+ scoreElement.innerHTML = "score:";
+ bulletsElement.innerHTML = "bullets:";
+ timerElement.innerHTML = "timer:";
+ /* CLICK TO SHOOT */
+ function shoot(e) {
+   if(canShoot) {
+     canShoot = false
+     e.preventDefault();
+     bulletHole.style.top = e.pageY + "px";
+     bulletHole.style.left = e.pageX + "px";
+     shootAudio.play()
+     bullets--;
+     bulletsElementNum.innerHTML = bullets;
+     // if you got the shoot on zombie
+     if (e.target === zombie) {
+       score++;
+       bloodSpot.style.top = e.pageY + "px";
+       bloodSpot.style.left = e.pageX + "px";
+       bloodSpot.style.display = "block";
+       bulletHole.style.display = "block";
+       setTimeout(() => {
+         bloodSpot.style.display = "none";
+       }, 415);
+       //if you got the score, game over, and collect cgun
+       if(score >= maxScore) {
+         endGame()
+       }
+       // else render the incremented score
+       else {
+         scoreElementNum.innerHTML = `${score} / ${maxScore}`;
+       }
+     }
+     if(bullets <= 0) {
+       endGame()
+     }
+     setTimeout(() => {
+       canShoot = true
+     }, 420);
+   }
+ }
+
+ window.addEventListener("mousedown", (e) => {
+   if(gameStarted) {
+     shoot(e)
+   }
+ });
+
+ /* CROSSHAIR CURSOR TRACKER */
+ window.addEventListener("mousemove", (e) => {
+   cursor.style.top = e.pageY + "px";
+   cursor.style.left = e.pageX + "px";
+ });
+
+ 
+    </script>
+  </body>
+  </html> 
+  <style>
+@import url('https://fonts.googleapis.com/css2?family=Rubik+Wet+Paint&display=swap');
+
+/* EFEITO VIDRO FUMÊ */
+
+h3 {
+        color: red;
+        text-align: center;
+        font-family: "Rubik Wet Paint", sans-serif;
+        padding: 10px;
+    }
+.game-rules::-webkit-scrollbar {
+  display: none !important;
+}
+
+    .game-rules {
+        overflow: auto;
+               scrollbar-width: none !important;
+        color: white;
+        display: block;
+        padding-left: 50px;
+        padding-right: 50px;
+        padding-bottom: 50px;
+        max-width: 30%;
+        margin-top: -280px;
+        margin-bottom: 50px;
+
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
+        border-radius: 10px;
+        border:1px solid rgba(255, 255, 255, 0.18);
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.30);
+    }
+    /* FIM EFEITO VIDRO FUMÊ */
+
+  body {
+    overflow: hidden;
+    background-image: url("https://images8.alphacoders.com/133/thumb-1920-1330717.png");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    height: 100vh;
+    text-align: left;
+    cursor: default;
+    /* font-family: 'NomeDaFontePersonalizada', sans-serif; */
+  }
+
+  button {
+    margin-bottom: 50px;
+    z-index: 1000;
+    color: #fff;
+    border: 2px solid #fff;
+    background: goldenrod;
+    padding: 15px 45px;
+    font-size: 1.3rem;
+    outline: none;
+    font-weight: 700;
+  }
+
+  #bullets, #timer, #score {
+    font-family: "Rubik Wet Paint", sans-serif;
+    font-size: 40px;
+    color: #ff0000;
+    margin-right: 20px;
+  }
+
+  #bullets-num, #timer-num, #score-num {
+    font-family: sans-serif;
+    font-size: 40px;
+    color: #fff;
+  text-shadow: 
+    -2px -2px 0 black,   /* Sombra no canto superior esquerdo */
+    2px -2px 0 black,    /* Sombra no canto superior direito */
+    -2px 2px 0 black,    /* Sombra no canto inferior esquerdo */
+    2px 2px 0 black;
+}
+
+  .container-timer, .container-bullets, .container-score {
+    display: flex;
+    flex-direction: row;
+  }
+
+  h1 {
+    color: #fff;
+    font-size: 150px;
+    font-family: sans-serif;
+  }
+
+  img::selection {
+    background: transparent;
+  }
+
+  .start-timer {
+    margin-top: 20vh;
+  }
+
+  .container,
+  .container-game-info,
+  .container-button-start,
+  .container-collect-cgun {
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+
+  .container {
+    flex-direction: column;
+    position: relative;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  .container-game-info {
+    flex-direction: row;
+    justify-content: space-around;
+  }
+
+  .container-button-start {
+    width: fit-content;
+    margin-top: 0vh;
+  }
+
+  .container-collect-cgun {
+    justify-content: center;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .bulletHole {
+    position: absolute;
+    height: 50px;
+    transform: translate(-50%, -50%);
+    z-index: 3;
+    display: none;
+  }
+
+  .zombie {
+    height: 100px;
+  }
+
+  .bloodSpot {
+    display: none;
+    position: absolute;
+    height: 50px;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+  }
+
+  .cursor {
+    position: absolute;
+    height: 70px;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 2;
+    transition: 0.3s transform ease;
+    transform-origin: 100% 100%;
+    display: none;
+  }
+  </style>
+  

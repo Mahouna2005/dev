@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    
+</head>
+<body>
+    <header>
+        <div id="logo">
+            <img src="checklist-1295319_1280.png" alt="">
+            <p>To <span>do</span></p>
+        </div>
+        
+        <ul>
+            <ol>Home</ol>
+            <ol>My task</ol>
+        </ul>
+        <div id="user">
+            <img src="utilisateur.png" alt="">
+            <p>Fadel</p>
+        </div>
+    </header>
+    <div id="taskheader">
+        <div id="task">Your <span style="color: orange;">task</span></div>
+        <input type="text" placeholder="Rechercher une de vos taches">
+        <div id="added">
+            <button id=" search"> Rechercher</button>
+            <button id="add-tache" onclick="ouvrirPopup()">Add New</button>
+             
+        </div>
+    </div>
+
+
+    <section id="sectionadd" class="overlay">
+        <div  class="popup">
+            <h3>Add New To do Task</h3>
+            
+                <input type="text" placeholder="title" id="title">
+               <textarea name="" id="description" placeholder="description"></textarea>
+          <div id="button" >  <button class="ajouter" onclick="ajouter_tache()">Ajouter</button>
+            <button id="cancel"onclick='removepopup()'>Cancel</button></div>
+        </div>
+      
+        </section>
+        
+    <section id="section_rename" class="overlays">
+        <div  class="popup">
+            <h3>Add New To do Task</h3>
+            
+                <input type="text" placeholder="title" id="titles">
+               <textarea name="" id="descriptions" placeholder="description"></textarea>
+          <div id="button" >  <button class="rename_button">Rename</button>
+            <button id="cancel"onclick='removepopups()'>Cancel</button></div>
+        </div>
+      
+        </section>
+    <section id="section2">
+        
+          
+
+       <div id="notask">
+        <img src="place (1).png">
+        <p>Aucune tache pour le moment
+       </div>
+   
+    </section>
+<script src="ficher.js"></script>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timer</title>
+</head>
+<style>
+    body{background:linear-gradient(to right,#2c3e50,#4ca1af)
+    ;font-family: "Poppins";
+    color: white;
+    }
+    h1{text-align: center;position: relative;top: 140px;}
+    section{padding: 50px;
+    ;;width: 400px;background: rgba(255,255,255,0.2);box-shadow: 0px 4px 10px rgba(0,0,0,0.2);backdrop-filter: blur(10px);height: 100px;border-radius: 9px;
+    position: relative;
+    left: 530px;
+    top: 150px;}
+    section #spandiv{
+        padding: 20px;border:  2px;
+        border-radius: 12px;
+    }
+    section #spandiv span{
+        position: relative;left :55px ;margin-left: 20px; font-size: 36px;letter-spacing: 4px;
+        font-weight: bold;
+        animation: grow 1s infinite alternate;
+    }
+    section #buttondiv{
+        padding: 15px;
+        margin-top: 15px;
+        position: relative;
+        left:55px
+    }
+    section #buttondiv button{
+        padding: 6px;width: 80px;
+        margin-left: 5px;border-radius:6px; border: none;
+    }
+    @keyframes grow{
+        from{text-shadow: 0 0 5px rgb(96, 92, 92)} to{
+            text-shadow:  0 0 10px #1d1b16;
+        }
+    }
+
+    #buttondiv button:hover{
+        padding-left:30px;background-color: rgb(85, 87, 89);
+    }
+</style>
+<body>
+    <h1>TIMER</h1>
+    <section>
+        <div id="spandiv">
+            <span>00 h</span>
+            <span>00 min</span>
+            <span>00 s</span>
+        </div>
+        <div id="buttondiv">
+            <button onclick="start()">Start</button>
+            <button onclick="stop()">Stop</button>
+            <button onclick="reset()">Reset</button>
+        </div>
+    </section>
+    <script>
+        const span=document.querySelectorAll('span')
+        const button=document.querySelectorAll("button")
+        
+var set
+       let heure=0
+      let   minutes=0
+        let secondes=0
+        function chrono(){
+            secondes=secondes+1
+            if(secondes===60){
+                minutes=minutes+1
+                secondes=0
+            }
+            if(minutes===60){
+                heure=heure+1
+                minutes=0
+            }
+            span[0].innerHTML=heure+"H"
+              span[1].innerHTML=minutes+"min"
+                span[2].innerHTML=secondes+"s"
+
+        }
+        function start(){
+             set=setInterval(chrono,100)
+            button[0].disabled=true
+             
+        }
+        function stop(){
+            button[0].disabled=false
+            clearInterval(set)
+
+        }
+        function reset(){
+            clearInterval(set)
+            button[0].disabled=false
+            heure=0; minutes=0; secondes=0; 
+            span[0].innerHTML=heure+"H"
+              span[1].innerHTML=minutes+"min"
+                span[2].innerHTML=secondes+"s"
+
+
+        }
+    </script>
+</body>
+</html>

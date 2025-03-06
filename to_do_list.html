@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<style>
+    body{font-family: "Poppins";background: linear-gradient(rgb(239, 229, 202),rgb(218, 184, 122));}
+    img{width: 50px;height: 50px;padding: 6px;}
+    header{
+        box-shadow: 0px 4px 12px rgba(0 ,0,0,0.1);height: 65px;
+        display: flex;justify-content: space-between;
+    }
+    ul{display: flex;position: relative;right: 180px}
+    ul ol{border: none;text-align: center;padding-right: 30px;font-size:16px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+    ;}
+  header div  p{position: relative;bottom: 76px;left: 78px;color: rgb(81, 87, 92);
+    font-family:cursive;font-size: 25px;font-weight: bold;;}
+    ul a{
+        text-decoration: none;
+        color: rgb(12, 15, 18);font-size: 18px;
+    }
+   ol:hover{background-color: orange;;
+   border-radius: 10px;
+   }
+   #span2{color: orange;letter-spacing: -4px}
+   section{display: flex;justify-content: space-between;}
+    #gauche p{ font-size:32px;font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;color:#353232;font-weight: bold;
+    position: relative;top: 120px;margin-left: 30px;letter-spacing: 0px;font-style: italic;
+
+   }
+   #droite{top: 60px;
+position: relative;right: 250px}
+#droite img{
+    width: 400px;height: 400px;mix-blend-mode: multiply;
+}
+#buttonpara{
+    position: relative;top: 120px;left: 80px;
+}
+#buttonpara button{
+    text-decoration: none; margin-left: 10px;
+    ;border: none;text-align: center;padding: 10px;font-size:16px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif ;border-radius: 6px;
+}
+#but{background-color: rgb(253, 177, 35);}
+#gauche ul{
+    display: flex;flex-direction: column;position: relative;top: 120px;left: 60px;font-family:"calibri";list-style: none;font-weight: 100;letter-spacing: 1px;
+font-size: 18px;}
+</style>
+<body>
+    <header>
+        <div>
+            <img src="checklist-1295319_1280.png" alt="">
+            <p>To <span id="span2">do</span></p>
+        </div>
+        <ul>
+            <ol> <a href="mytask.html">Home</a></ol>
+            <ol id="av"><a href="inscription.html">Connexion</a></ol>
+            <ol><a href="login.html">Inscription</a></ol>
+        </ul>
+    </header>
+
+    <section>
+        <div id="gauche">
+<p> Gérez facilement vos tâches, suivez votre progression <br> et améliorez votre productivité au quotidien avev To<span id="span2">do</span></p>
+
+
+<ul>
+    <li>✔Ajoutez, modifiez et supprimez vos tâches en un clic.</li>
+    <li>✔ Recevez des rappels pour ne rien oublier.</li>
+    <li>✔ Accédez à votre liste de tâches depuis n'importe quel appareil.</li>
+</ul>
+<div id="buttonpara">
+
+    <a href="" > <button id="but">Inscription</button></a>
+    <a href=""> <button>Login</button></a>
+</div>
+        </div>
+        <div id="droite">
+<img src="ga.jpg" alt="">
+        </div>
+    </section>
+</body>
+</html>

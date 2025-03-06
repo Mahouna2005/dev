@@ -1,0 +1,134 @@
+
+body{
+    margin: 0px;
+    box-sizing: border-box;
+}
+header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0px 5px 10px rgba(0,0,0,0.1);border-radius: 6px;
+}
+#logo{
+    display: flex;margin-left: 25px;
+
+}
+#logo img{
+    width: 50px;height: 50px;position: relative;top: 14px;
+}
+#logo p{position: relative;bottom: 4px;left: 20px; color: rgb(162, 176, 176); font-family:cursive;font-size: 25px;font-weight: bold} #logo p span{color: orange;letter-spacing: -2px;} 
+
+
+header #user{
+    display:  flex;
+    position: relative;
+    right: 130px;
+    flex-direction: row;
+    border: 2px outset;
+    width: 100px;border-radius: 9px;
+    padding: none;margin: none;height: 40px;
+
+
+}
+#user p{font-family: "roboto";font-weight: 300;position: relative;bottom: 7px;;}
+ol{font-size: 18px;letter-spacing: 1px;font-size: 19px;font-weight: lighter;}
+  
+  ol:hover {text-decoration: underline orange 6px;
+    
+    
+  }
+ 
+header ul{display: flex;position: relative;left: 280px;} 
+#user img{width: 30px;height: 30px;position: relative;bottom: 2px;}
+
+#taskheader{margin-top: 60px;
+    display: flex;;height: 150px;justify-content: space-between;align-items: center;
+}
+#taskheader input{
+    width: 650px; height: 20px;border-radius: 4px;border-color: rgb(101, 108, 104);border: 1px solid rgb(179, 175, 171);height:26 px ;
+}
+#task{position: relative;left: 50px;font-size: 32px;font-weight: bold; color: rgb(162, 176, 176);} #added{position: relative;right: 180px; ;}
+
+#added button{background-color: orange; padding: 10px;border-radius: 8px; width: 100px;position: relative;right: 30px; border: none;color: white;margin: 8px;}
+
+
+
+section{
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
+    display: grid;
+    flex-direction: row;
+    grid-template-columns: auto auto auto auto
+    ;gap: 60px;;padding: 10px;
+}
+section .section{box-shadow: 0px 4px 10px rgba(0,0,0,0.2);padding: 6px;border-radius: 12px;width: auto;max-width: 300px;overflow-wrap: break-word;;;}
+.section div{text-align: center;
+    
+}
+#div1{
+    display: flex;
+    align-items: center;justify-content: space-between;
+
+
+}
+#div1 #paragraph1{margin-left: 10px;} #paragraph2{margin-right: 10px;border: 1px solid;background-color: rgb(164, 168, 173);border-radius: 8px;padding: 4px;}
+#div3{
+    border:none ;border-top:2px solid rgb(126, 114, 114); margin-top: 10px ;padding: 5px;display: flex;align-items: center;justify-content: center;
+}
+#div3 button,img,.checkbox{width:16px ;height: 16px;margin: 6px;
+    border-radius: 8px;;
+}
+#sectionadd{
+    
+}
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7); /* Fond sombre semi-transparent */
+    
+    justify-content: center;
+    align-items: center;
+    ; /* S'assure qu'il est devant tout */
+    display: none; /* Caché par défaut */
+  }
+  .popup {display: flex;flex-direction: column;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);width: auto;
+  }
+  .popup input{
+    margin-top: 20px;
+    width: 300px;height: 20px;;border-radius: 6px;border:solid 1px;
+  }
+  .popup textarea{width: 320px;height: 60px;margin-top: 20px;border-radius: 6px;border:solid 1px;}
+  
+.popup div{margin-top: 40px;}.popup div button{cursor: pointer; border: none;padding: 10px;border-radius: 8px;margin:5px;}
+.ajouter{background-color: orange;}
+.overlays {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7); /* Fond sombre semi-transparent */
+    
+    justify-content: center;
+    align-items: center;
+    ; /* S'assure qu'il est devant tout */
+   
+    display: none; /* Caché par défaut */
+  }
+  .rename_button{background-color: orange;}
+  #notask{position: relative;left: 600px;
+  }
+  #notask p{
+    font-family: sans-serif;font-size: 18px;font-weight: 200;
+  }
+  #notask img{
+    width:100px;position: relative;left: 60px;pointer-events: none;
+    height:100px;
+  }
